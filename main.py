@@ -1,12 +1,12 @@
-import os
-
 from dotenv import load_dotenv
 from logger import get_logger
 from argument_parsing import DbArgumentParser
 from api_client import DbApiClient
-from utils import load_config
+from utils import load_config, print_more_results
 
+import os
 import sys
+
 
 logger = get_logger(__name__)
 
@@ -27,11 +27,23 @@ if __name__ == "__main__":
     logger.info("Configuration loaded successfully: {}".format(config))
 
     api_base_url = config.get("api").get("base_url")
+    max_results = config.get("output").get("max_results")
+
     client = DbApiClient(api_base_url)
 
     if args.search:
         train_stations = client.search_station(args.search)
-        for station in train_stations:
-            print("Name: {}".format(station["name"]))
-            print("ID: {}".format(station["id"]))
-            print("\n")
+        logger.info("Retrieved {} stations!".format(len(train_stations)))
+
+        start_idx = 0
+        end_idx = max_results
+        while start_idx < len(train_stations):
+            for station in train_stations[start_idx:end_idx]:
+                print(f"{station['name']} (ID: {station['id']})")
+
+            start_idx += max_results
+            if start_idx < len(train_stations) and print_more_results():
+                end_idx += max_results
+
+    elif args.departures:
+        pass  # TODO

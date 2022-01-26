@@ -8,6 +8,7 @@ class DbArgumentParser(ArgumentParser):
 
     def __init__(self):
         super().__init__()
+
         self.description = "A CLI Tool that makes it possible to retrieve public transport information such as \
                            train stations or departures from the official Deutsche Bahn APIs. See below how to use it."
 

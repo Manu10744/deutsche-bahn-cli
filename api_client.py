@@ -30,7 +30,7 @@ class DbApiClient():
         :type station_name: str
 
         :return: a dictionary containing name, id, longitude and latitude of all train_stations that matched the
-                 given name.
+                 given name. An empty dictionary is returned if no train stations could be found.
         :rtype: dict
         """
         query_url = f"{self.base_url}/freeplan/v1/location/{station_name}"
