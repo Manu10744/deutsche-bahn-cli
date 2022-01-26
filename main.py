@@ -23,8 +23,8 @@ if __name__ == "__main__":
     api_base_url = config.get("api").get("base_url")
     client = DbApiClient(api_base_url)
 
-    if args.station:
-        train_stations = client.search_station(args.station)
+    if args.search:
+        train_stations = client.search_station(args.search)
         for station in train_stations:
             print("Name: {}".format(station["name"]))
             print("ID: {}".format(station["id"]))

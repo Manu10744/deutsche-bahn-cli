@@ -9,7 +9,7 @@ This program is powered by the official [Deutsche Bahn APIs](https://data.deutsc
 You must have `Python v3` installed on your device.
 
 #### Installation steps
-1. Enter your API Key in the `.env` file
+1. Create a `.env` file in the root directory and enter your API Key:
 ```bash
 DB_API_KEY=<your_key>
 ```   
@@ -31,8 +31,8 @@ TODO
 ### TO-DO's:
 - [X] Get API Key
 - [X] Setup fundamental structure and configuration
-- [ ] (WIP) Implement search for train stations => maybe --find str ?
-- [ ] Implement search for departures given a train station => maybe --departures xy ?
+- [X] Implement search for train stations => maybe --find str ?
+- [ ] (WIP) Implement search for departures given a train station => maybe --departures xy ?
 - [ ] Implement search for parking spots => maybe --parking xy ?
 - [ ] Implement route information output => maybe --from xy --to z ?
 
