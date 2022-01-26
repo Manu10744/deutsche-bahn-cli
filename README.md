@@ -29,9 +29,9 @@ TODO
 <hr>
 
 ### TO-DO's:
-- [ ] Get API Key
-- [ ] Setup fundamental structure and configuration
-- [ ] Implement search for train stations => maybe --find str ?
+- [X] Get API Key
+- [X] Setup fundamental structure and configuration
+- [ ] (WIP) Implement search for train stations => maybe --find str ?
 - [ ] Implement search for departures given a train station => maybe --departures xy ?
 - [ ] Implement search for parking spots => maybe --parking xy ?
 - [ ] Implement route information output => maybe --from xy --to z ?
