@@ -2,7 +2,7 @@
 
 Get useful information regarding public transport in Germany (DeutscheBahn) such as train stations, departures, routes, parking spots and more straight from the CLI.
 <br>
-This program is powered by the official [Deutsche Bahn APIs](https://data.deutschebahn.com/dataset.groups.apis.html).
+This program is powered by the official [Deutsche Bahn APIs](https://developer.deutschebahn.com/store/apis/list).
 <br>
 
 ### Installation & Prerequisites
