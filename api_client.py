@@ -42,10 +42,10 @@ class DbApiClient():
             raise SystemExit(1)
 
         if not response.ok:
-            logger.error("No train station could be found. (HTTP Status Code {})".format(response.status_code))
-            raise SystemExit(1)
+            logger.info("No train station could be found. (HTTP Status Code {})".format(response.status_code))
+            return dict()
         else:
-            logger.info("Response returned an HTTP Status Code of {}".format(response.status_code))
+            logger.info("Response HTTP Status Code: {}".format(response.status_code))
 
             train_stations = response.json()
             logger.debug("Response: {}".format(train_stations))
@@ -55,7 +55,7 @@ class DbApiClient():
         """
         Retrieves the departures for the train station matching the given `id`.
         
-        :param station_id: The ID of the specific train station.
+        :param station_id: the ID of the specific train station.
         :type station_id: int
         
         :return:
@@ -67,7 +67,7 @@ class DbApiClient():
         """
         Returns the basic necessary headers needed for querying the Deutsche Bahn APIs.
 
-        :return: dictionary with the headers
+        :return: a dictionary containing the headers.
         :rtype: requests.CaseInsensitiveDict
         """
         headers = CaseInsensitiveDict()

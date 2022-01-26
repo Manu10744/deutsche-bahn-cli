@@ -20,9 +20,14 @@ $ pip install -r requirements.txt
 
 <br>
 
-### Usage
+### Usage Examples
+#### Search for a train station
 ```bash
-TODO
+# Search with a fracture of a name
+py main.py --search Münc
+
+# Search with a full name
+py main.py --search "München Hbf"
 ```
 
 <br>
@@ -37,5 +42,6 @@ TODO
 - [ ] Implement route information output => maybe --from xy --to z ?
 
 ### Possible enhancements 
+- [ ] Add --verbose argument
 - [ ] Bash autocomplete
 - [ ] Web Dashboard
