@@ -13,7 +13,13 @@ You must have `Python v3` installed on your device.
 ```bash
 DB_API_KEY=<your_key>
 ```   
-2. Install the necessary dependencies with `pip`
+
+2. Clone the repository
+```bash
+$ git clone https://github.com/Manu10744/deutsche-bahn-cli.git
+ ```
+
+3. Install the necessary dependencies with `pip`
 ```bash
 $ pip install -r requirements.txt
 ```

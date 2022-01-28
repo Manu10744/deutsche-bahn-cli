@@ -2,10 +2,12 @@ from dotenv import load_dotenv
 from argument_parsing import DbArgumentParser
 from api_client import DbApiClient
 from utils import load_config, print_more_results
+from datetime import datetime
 
 import os
 import sys
 import logging
+
 
 logger = logging.getLogger(__name__)
 
@@ -44,7 +46,13 @@ def main():
                 break
 
     elif args.departures:
-        pass  # TODO
+        departures = client.get_departures(args.departures)
+
+        for departure in departures:
+            train_id = departure['name']
+            departure_time = datetime.fromisoformat(departure['dateTime']).strftime("%Y-%m-%d %H:%M")
+
+            print(f"{train_id}: Departure at {departure_time}")
 
 
 if __name__ == "__main__":
