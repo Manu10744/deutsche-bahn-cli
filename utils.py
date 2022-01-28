@@ -1,10 +1,10 @@
-from logger import get_logger
+import sys
+import logging
 
 import yaml
-import sys
 
 
-logger = get_logger(__name__)
+logger = logging.getLogger(__name__)
 
 
 def load_config():

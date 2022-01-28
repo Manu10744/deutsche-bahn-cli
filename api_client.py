@@ -1,14 +1,14 @@
-from logger import get_logger
 from requests.structures import CaseInsensitiveDict
 
 import requests
 import os
+import logging
 
 
-logger = get_logger(__name__)
+logger = logging.getLogger(__name__)
 
 
-class DbApiClient():
+class DbApiClient:
     """
     API Client for the Deutsche Bahn APIs.
     """
@@ -22,7 +22,7 @@ class DbApiClient():
         """
         self.base_url = base_url
 
-    def search_station(self, station_name):
+    def get_stations(self, station_name):
         """
         Retrieves the IDs of the train station(s) that either partially or fully match(es) the given `station_name`.
 

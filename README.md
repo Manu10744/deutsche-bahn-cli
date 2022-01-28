@@ -42,7 +42,7 @@ py main.py --search "München Hbf"
 - [ ] Implement route information output => maybe --from xy --to z ?
 
 ### Possible enhancements 
-- [ ] (WIP) Instead of printing lots of results, print some and ask user if he wants to output more results
-- [ ] Add --verbose argument
+- [X] Instead of printing lots of results, print some and ask user if he wants to output more results
+- [X] Add --verbose argument
 - [ ] Bash autocomplete
 - [ ] Web Dashboard
