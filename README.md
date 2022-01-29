@@ -2,7 +2,10 @@
 
 Get useful information regarding public transport in Germany (DeutscheBahn) such as train stations, departures, routes, parking spots and more straight from the CLI.
 <br>
-This program is powered by the official [Deutsche Bahn APIs](https://developer.deutschebahn.com/store/apis/list).
+This program is powered by the official [Deutsche Bahn APIs](https://developer.deutschebahn.com/store/apis/list):
+
+- [Fahrplan API](https://developer.deutschebahn.com/store/apis/info?name=Fahrplan-Free&version=v1&provider=DBOpenData)
+
 <br>
 
 ### Installation & Prerequisites
@@ -51,5 +54,5 @@ py main.py --search "München Hbf"
 ### Possible enhancements 
 - [X] Instead of printing lots of results, print some and ask user if he wants to output more results
 - [X] Add --verbose argument
-- [ ] Bash autocomplete
+- [ ] (WIP) Bash autocomplete
 - [ ] Web Dashboard
