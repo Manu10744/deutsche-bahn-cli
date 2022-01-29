@@ -9,15 +9,16 @@ This program is powered by the official [Deutsche Bahn APIs](https://developer.d
 You must have `Python v3` installed on your device.
 
 #### Installation steps
-1. Create a `.env` file in the root directory and enter your API Key:
+
+1. Clone the repository
+```bash
+$ git clone https://github.com/Manu10744/deutsche-bahn-cli.git
+```
+ 
+2. Create a `.env` file in the root directory and enter your API Key:
 ```bash
 DB_API_KEY=<your_key>
 ```   
-
-2. Clone the repository
-```bash
-$ git clone https://github.com/Manu10744/deutsche-bahn-cli.git
- ```
 
 3. Install the necessary dependencies with `pip`
 ```bash
