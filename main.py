@@ -31,22 +31,25 @@ def main():
     client = DbApiClient(api_base_url)
 
     if args.search:
-        train_stations = client.get_stations(args.search)
-        logger.info("Retrieved {} stations!".format(len(train_stations)))
+        search_string = args.search
+        train_stations = client.get_stations(search_string)
 
-        print("\nFound train stations:\n")
+        if len(train_stations) > 0:
+            print("\nFound train stations:\n")
 
-        start_idx = 0
-        end_idx = max_results
-        while start_idx < len(train_stations):
-            for station in train_stations[start_idx:end_idx]:
-                print(f"{station['name']} \t (ID: {station['id']})")
+            start_idx = 0
+            end_idx = max_results
+            while start_idx < len(train_stations):
+                for station in train_stations[start_idx:end_idx]:
+                    print(f"{station['name']} \t (ID: {station['id']})")
 
-            start_idx += max_results
-            if start_idx < len(train_stations) and print_more_results():
-                end_idx += max_results
-            else:
-                break
+                start_idx += max_results
+                if start_idx < len(train_stations) and print_more_results():
+                    end_idx += max_results
+                else:
+                    break
+        else:
+            print("No train stations were found.")
 
     elif args.departures:
         station_id = args.departures

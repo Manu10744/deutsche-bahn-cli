@@ -54,9 +54,11 @@ class DbApiClient:
         response = self.get_request(request_url)
 
         if not response.ok:
-            logger.info("No train station could be found. (HTTP Status Code {})".format(response.status_code))
+            logger.error("HTTP Status Code {}: There was an error on the server side: {})".format(response.status_code,
+                                                                                                 response.json()))
             return list()
 
+        logging.debug("Response: {}".format(response.json()))
         return response.json()
 
     def get_departures(self, station_id, start_datetime=None):
@@ -78,12 +80,12 @@ class DbApiClient:
         response = self.get_request(request_url, params=params)
 
         if not response.ok:
-            logger.info("No departures could be found for that station ID. (HTTP Status Code {})".format(response.status_code))
+            logger.error("HTTP Status Code {}: There was an error on the server side: {})".format(response.status_code,
+                                                                                                 response.json()))
             return list()
 
-        departures = response.json()
-
-        return departures
+        logging.debug("Response: {}".format(response.json()))
+        return response.json()
 
     def get_journey_details(self, journey_id):
         """
@@ -99,9 +101,11 @@ class DbApiClient:
         response = self.get_request(request_url)
 
         if not response.ok:
-            logger.info("No details for the given journey could be found. (HTTP Status Code: {})".format(response.status_code))
+            logger.error("HTTP Status Code {}: There was an error on the server side: {})".format(response.status_code,
+                                                                                                 response.json()))
             return list()
 
+        logging.debug("Response: {}".format(response.json()))
         return response.json()
 
     def __get_headers(self):
