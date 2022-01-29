@@ -59,26 +59,47 @@ class DbApiClient:
 
         return response.json()
 
-    def get_departures(self, station_id, starting_at=None):
+    def get_departures(self, station_id, start_datetime=None):
         """
-        Retrieves the departures for the train station matching the given `id`.
-        
+        Retrieves the departures for the train station matching the given `station_id`, starting from `start_datetime`.
+
         :param station_id: the ID of the specific train station.
         :type station_id: int
-
-        :param starting_at: the beginning of the time interval for retrieving departures.
-        :param: datetime
+        :param start_datetime: the beginning of the time interval that is used to retrieve departures.
+                               Has to be date and time according to the ISO-8601 format (YYYY-MM-DDThh:mm:ss)
+        :type start_datetime: datetime
 
         :return: a JSON-Array containing the departures for the train station.
         :rtype: list
         """
         request_url = f"{self.base_url}/freeplan/v1/departureBoard/{station_id}"
-        params = {"date": datetime.now() if starting_at is None else starting_at}
+        params = {"date": datetime.now().isoformat() if start_datetime is None else start_datetime}
 
         response = self.get_request(request_url, params=params)
 
         if not response.ok:
             logger.info("No departures could be found for that station ID. (HTTP Status Code {})".format(response.status_code))
+            return list()
+
+        departures = response.json()
+
+        return departures
+
+    def get_journey_details(self, journey_id):
+        """
+        Retrieves the details for the journey matching the given `journey_id`.
+
+        :param journey_id: the ID of the specific journey.
+        :type journey_id: int
+
+        :return: a JSON-Array containing the details of the specified journey.
+        :rtype: list
+        """
+        request_url = f"{self.base_url}/freeplan/v1/journeyDetails/{journey_id}"
+        response = self.get_request(request_url)
+
+        if not response.ok:
+            logger.info("No details for the given journey could be found. (HTTP Status Code: {})".format(response.status_code))
             return list()
 
         return response.json()

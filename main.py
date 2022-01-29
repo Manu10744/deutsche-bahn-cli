@@ -29,15 +29,18 @@ def main():
     max_results = config.get("output").get("max_results")
 
     client = DbApiClient(api_base_url)
+
     if args.search:
         train_stations = client.get_stations(args.search)
         logger.info("Retrieved {} stations!".format(len(train_stations)))
+
+        print("\nFound train stations:\n")
 
         start_idx = 0
         end_idx = max_results
         while start_idx < len(train_stations):
             for station in train_stations[start_idx:end_idx]:
-                print(f"{station['name']} (ID: {station['id']})")
+                print(f"{station['name']} \t (ID: {station['id']})")
 
             start_idx += max_results
             if start_idx < len(train_stations) and print_more_results():
@@ -46,13 +49,21 @@ def main():
                 break
 
     elif args.departures:
-        departures = client.get_departures(args.departures)
+        station_id = args.departures
+        departures = client.get_departures(station_id)
 
-        for departure in departures:
-            train_id = departure['name']
-            departure_time = datetime.fromisoformat(departure['dateTime']).strftime("%Y-%m-%d %H:%M")
+        if len(departures) > 0:
+            train_station = departures[0]["stopName"]
 
-            print(f"{train_id}: Departure at {departure_time}")
+            print(f"\nDepartures from {train_station}:\n")
+            for departure in departures:
+                train_id = departure['name']
+                departure_time = datetime.fromisoformat(departure['dateTime']).strftime("%Y-%m-%d %H:%M")
+
+                print(f"[{train_id}] Departure at {departure_time}")
+                print(f"Journey ID: {departure['detailsId']})" + "\n")
+        else:
+            print("No departures were found.")
 
 
 if __name__ == "__main__":
