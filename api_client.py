@@ -1,10 +1,10 @@
 from requests.structures import CaseInsensitiveDict
 from datetime import datetime
+from model.TimeTable import TimeTable
 
 import requests
 import os
 import logging
-
 
 logger = logging.getLogger(__name__)
 
@@ -23,22 +23,6 @@ class DbApiClient:
         """
         self.base_url = base_url
 
-    def get_request(self, request_url, params=None, headers=None):
-        """
-        Makes an HTTP GET Request to the specified `request_url` and returns the response.
-
-        :param request_url: the URL for the GET Request.
-        :return: the retrieved response.
-        """
-        logger.debug("HTTP GET Request to {}".format(request_url))
-        try:
-            response = requests.get(request_url, params=params, headers=self.__get_headers() if headers is None else headers)
-            logger.debug("Response (HTTP Status Code: {}): {}".format(response.status_code, response.json()))
-            return response
-        except requests.exceptions.RequestException as err:
-            logger.error("Error upon HTTP Request: {}".format(err))
-            raise SystemExit(1)
-
     def get_stations(self, station_name):
         """
         Retrieves the IDs of the train station(s) that either partially or fully match(es) the given `station_name`.
@@ -51,7 +35,7 @@ class DbApiClient:
         :rtype: list
         """
         request_url = f"{self.base_url}/freeplan/v1/location/{station_name}"
-        response = self.get_request(request_url)
+        response = self.__get_request(request_url)
 
         if not response.ok:
             logger.error("HTTP Status Code {}: There was an error on the server side: {})".format(response.status_code,
@@ -61,52 +45,48 @@ class DbApiClient:
         logging.debug("Response: {}".format(response.json()))
         return response.json()
 
-    def get_departures(self, station_id, start_datetime=None):
+    def get_departures(self, station_id):
         """
-        Retrieves the departures for the train station matching the given `station_id`, starting from `start_datetime`.
+        Retrieves the departures for the train station matching the given `station_id`.
 
         :param station_id: the ID of the specific train station.
         :type station_id: int
-        :param start_datetime: the beginning of the time interval that is used to retrieve departures.
-                               Has to be date and time according to the ISO-8601 format (YYYY-MM-DDThh:mm:ss)
-        :type start_datetime: datetime
 
         :return: a JSON-Array containing the departures for the train station.
         :rtype: list
         """
-        request_url = f"{self.base_url}/freeplan/v1/departureBoard/{station_id}"
-        params = {"date": datetime.now().isoformat() if start_datetime is None else start_datetime}
+        current_date = datetime.now()
+        YYMMDD = current_date.strftime('%y') + current_date.strftime('%m') + current_date.strftime('%d')
+        current_hour = current_date.strftime('%H')
 
-        response = self.get_request(request_url, params=params)
-
-        if not response.ok:
-            logger.error("HTTP Status Code {}: There was an error on the server side: {})".format(response.status_code,
-                                                                                                 response.json()))
-            return list()
-
-        logging.debug("Response: {}".format(response.json()))
-        return response.json()
-
-    def get_journey_details(self, journey_id):
-        """
-        Retrieves the details for the journey matching the given `journey_id`.
-
-        :param journey_id: the ID of the specific journey.
-        :type journey_id: int
-
-        :return: a JSON-Array containing the details of the specified journey.
-        :rtype: list
-        """
-        request_url = f"{self.base_url}/freeplan/v1/journeyDetails/{journey_id}"
-        response = self.get_request(request_url)
+        request_url = f"{self.base_url}/timetables/v1/plan/{station_id}/{YYMMDD}/{current_hour}"
+        response = self.__get_request(request_url)
 
         if not response.ok:
             logger.error("HTTP Status Code {}: There was an error on the server side: {})".format(response.status_code,
-                                                                                                 response.json()))
+                                                                                                 response.content))
             return list()
 
-        logging.debug("Response: {}".format(response.json()))
-        return response.json()
+        logging.debug("Response: {}".format(response.content))
+
+        xml_response = response.content.decode('utf-8')
+        return TimeTable.from_xml_string(xml_response)
+
+    def __get_request(self, request_url, params=None, headers=None):
+        """
+        Makes an HTTP GET Request to the specified `request_url` and returns the response.
+
+        :param request_url: the URL for the GET Request.
+        :return: the retrieved response.
+        """
+        logger.debug("HTTP GET Request to {}".format(request_url))
+        try:
+            response = requests.get(request_url, params=params, headers=self.__get_headers() if headers is None else headers)
+            logger.debug("Response (HTTP Status Code: {}): {}".format(response.status_code, response.content))
+            return response
+        except requests.exceptions.RequestException as err:
+            logger.error("Error upon HTTP Request: {}".format(err))
+            raise SystemExit(1)
 
     def __get_headers(self):
         """

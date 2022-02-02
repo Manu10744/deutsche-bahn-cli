@@ -1,5 +1,5 @@
 api:
-  base_url: http://api.deutschebahn.com # Base URL of the Deutsche Bahn API.
+  base_url: https://api.deutschebahn.com # Base URL of the Deutsche Bahn API.
 
 output:
   max_results: 10 # Sets the maximum results that are displayed at once.
