@@ -2,7 +2,7 @@ from dotenv import load_dotenv
 from argument_parsing import get_args
 from api_client import DbApiClient
 from utils.io import load_config
-from utils.printing import print_stations, print_departures
+from utils.printing import print_stations, print_timetable
 
 import os
 import logging
@@ -31,11 +31,11 @@ def main():
 
         print_stations(train_stations, max_results)
 
-    elif args.departures:
-        station_id = args.departures
+    elif args.timetable:
+        station_id = args.timetable
         timetable = client.get_timetable(station_id)
 
-        print_departures(timetable, max_results)
+        print_timetable(timetable, max_results)
 
 
 if __name__ == "__main__":

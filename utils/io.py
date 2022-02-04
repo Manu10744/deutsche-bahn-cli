@@ -7,7 +7,7 @@ import yaml
 logger = logging.getLogger(__name__)
 
 
-def load_config():
+def load_config() -> dict:
     """
     Converts the configuration file into a dictionary.
 

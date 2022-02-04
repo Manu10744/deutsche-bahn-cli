@@ -1,13 +1,13 @@
 import xml.etree.ElementTree
+import requests
+import os
+import logging
 
 from requests.structures import CaseInsensitiveDict
 from datetime import datetime
 from model.timetable.timetable import TimeTable
 from mapping.mapper import map_to_train_station, map_to_timetable
 
-import requests
-import os
-import logging
 
 logger = logging.getLogger(__name__)
 

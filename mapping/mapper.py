@@ -18,7 +18,7 @@ def map_to_train_station(train_station_json: dict) -> TrainStation:
     return TrainStation(name=train_station_json["name"], eva_numbers=eva_numbers)
 
 
-def map_to_timetable(timetable_tree: ElementTree):
+def map_to_timetable(timetable_tree: ElementTree) -> TimeTable:
     """
     Maps an XML Tree representing a train station's time table from the TimeTable API to a `TimeTable`.
     
@@ -52,8 +52,8 @@ def map_to_timetable(timetable_tree: ElementTree):
 
         entry = TimeTableEntry(
             train=f"{train_type} {train_number}",
-            arrival_time=map_string_to_datetime(arrival.get("pt"), format='%y%m%d%H%M') if arrival is not None else None,
-            departure_time=map_string_to_datetime(departure.get("pt"), format='%y%m%d%H%M') if departure is not None else None,
+            arrival_time=map_to_datetime(arrival.get("pt"), format='%y%m%d%H%M') if arrival is not None else None,
+            departure_time=map_to_datetime(departure.get("pt"), format='%y%m%d%H%M') if departure is not None else None,
             route=route
         )
         entries.append(entry)
@@ -61,7 +61,7 @@ def map_to_timetable(timetable_tree: ElementTree):
     return TimeTable(train_station=table_train_station, entries=entries)
 
 
-def map_string_to_datetime(datetime_string: str, format: str) -> datetime:
+def map_to_datetime(datetime_string: str, format: str) -> datetime:
     """
     Maps a string of format YYMMDDhhmm into a `datetime`.
     Example: '202201011322' for 2022-01-01 13:22
