@@ -1,10 +1,11 @@
 # deutsche-bahn-cli
 
-Get useful information regarding public transport in Germany (DeutscheBahn) such as train stations, departures, routes, parking spots and more straight from the CLI.
+Get useful information regarding public transport in Germany (DeutscheBahn) such as train stations, departures and arrivals, routes, parking spots and more straight from the CLI.
 <br>
 This program is powered by the official [Deutsche Bahn APIs](https://developer.deutschebahn.com/store/apis/list):
 
-- [Fahrplan API](https://developer.deutschebahn.com/store/apis/info?name=Fahrplan-Free&version=v1&provider=DBOpenData)
+- [StaDa API](https://developer.deutschebahn.com/store/apis/info?name=StaDa-Station_Data&version=v2&provider=DBOpenData)
+- [TimeTable API](https://developer.deutschebahn.com/store/apis/info?name=Timetables&version=v1&provider=DBOpenData)
 
 <br>
 
@@ -38,6 +39,9 @@ py main.py --search Münc
 
 # Search with a full name
 py main.py --search "München Hbf"
+
+# Search with a wildcard
+py main.py --search "München*,Berlin*"
 ```
 
 <br>
