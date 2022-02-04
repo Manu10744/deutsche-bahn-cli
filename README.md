@@ -51,8 +51,8 @@ py main.py --search "München*,Berlin*"
 - [X] Get API Key
 - [X] Setup fundamental structure and configuration
 - [X] Implement search for train stations => maybe --find str ?
-- [ ] (WIP) Implement search for departures given a train station => maybe --departures xy ?
-- [ ] Implement search for parking spots => maybe --parking xy ?
+- [X] Implement search for departures given a train station => maybe --departures xy ?
+- [ ] (WIP) Implement search for parking spots => maybe --parking xy ?
 - [ ] Implement route information output => maybe --from xy --to z ?
 
 ### Possible enhancements 
