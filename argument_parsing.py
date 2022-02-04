@@ -27,8 +27,9 @@ def get_args():
                                  help="Search for train stations by their name. Wildcards (*) can be used. You can "
                                       "search for multiple train stations by seperating the search strings with a comma.")
 
-    core_args_group.add_argument("--departures",
+    core_args_group.add_argument("--timetable",
                                  type=int,
                                  metavar="<station_id>",
-                                 help="Get the departures for the train station corresponding to the given ID.")
+                                 help="Display the timetable of the current hour for the train station corresponding "
+                                      "to the given station ID.")
     return parser.parse_args()

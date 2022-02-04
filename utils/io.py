@@ -21,7 +21,7 @@ def load_config():
             logger.error(f"Error upon trying to parse the configuration: {err}")
 
 
-def print_more_results(default="yes"):
+def print_more_results(default: str = "yes"):
     """ Asks if the user wants more results to be displayed and returns their answer.
 
     :param default: the presumed answer if the user just hits <Enter>. It must be "yes" (the default), "no" or None

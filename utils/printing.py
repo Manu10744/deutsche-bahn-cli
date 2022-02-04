@@ -22,15 +22,17 @@ def print_stations(train_stations: list, max_results: int):
 
 
 def print_departures(timetable: TimeTable, max_results: int):
+
+    if len(timetable.entries) == 0:
+        print("No timetable data for that train station.")
+
     print(f"\nFound departures for {timetable.train_station}:\n")
 
     idx = 0
     end_idx = max_results
     while idx < len(timetable.entries):
         for entry in timetable.entries[idx:end_idx]:
-            print("{}: Departure at {}".format(entry.train, entry.departure_time))
-            print(" | ".join(entry.route))
-            print("\n")
+            print(entry)
             idx += 1
 
         if idx < len(timetable.entries) and print_more_results():

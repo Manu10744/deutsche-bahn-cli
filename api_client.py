@@ -53,9 +53,10 @@ class DbApiClient:
         logger.debug("Response: {}".format(response.json()))
         return [map_to_train_station(station_json) for station_json in response.json().get("result")]
 
-    def get_departures(self, station_id: int) -> TimeTable:
+    def get_timetable(self, station_id: int) -> TimeTable:
         """
-        Retrieves the departures for the train station matching the given `station_id`.
+        Retrieves the timetable of the current hour containing the arrivals and departures for the train station
+        matching the given `station_id`.
 
         This method queries the Deutsche Bahn TimeTable API.\n
         See more at https://developer.deutschebahn.com/store/apis/info?name=Timetables&version=v1&provider=DBOpenData

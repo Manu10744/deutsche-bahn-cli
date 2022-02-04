@@ -33,7 +33,7 @@ def main():
 
     elif args.departures:
         station_id = args.departures
-        timetable = client.get_departures(station_id)
+        timetable = client.get_timetable(station_id)
 
         print_departures(timetable, max_results)
 
