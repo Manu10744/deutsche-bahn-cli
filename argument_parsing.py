@@ -30,6 +30,16 @@ def get_args():
     core_args_group.add_argument("--timetable",
                                  type=int,
                                  metavar="<station_id>",
-                                 help="Display the timetable of the current hour for the train station corresponding "
-                                      "to the given station ID.")
+                                 help="Display the timetable of the current hour for the train station associated with "
+                                      "the given station ID.")
+
+    core_args_group.add_argument("--arrivals",
+                                 type=int,
+                                 metavar="<station_id>",
+                                 help="Display the arrivals at the train station associated with the given station ID.")
+
+    core_args_group.add_argument("--departures",
+                                 type=int,
+                                 metavar="<station_id>",
+                                 help="Display the departures at the train station associated with the given station ID.")
     return parser.parse_args()

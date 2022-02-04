@@ -31,7 +31,7 @@ def map_to_timetable(timetable_tree: ElementTree) -> TimeTable:
     entries = list()
     for train_entry in timetable_tree:
         train_details = train_entry.find("tl")
-        train_type = train_details.get("c")
+        train_category = train_details.get("c")
         train_number = train_details.get("n")
 
         arrival = train_entry.find("ar")
@@ -51,7 +51,7 @@ def map_to_timetable(timetable_tree: ElementTree) -> TimeTable:
                 route.append(train_station)
 
         entry = TimeTableEntry(
-            train=f"{train_type} {train_number}",
+            train=f"{train_category} {train_number}",
             arrival_time=map_to_datetime(arrival.get("pt"), format='%y%m%d%H%M') if arrival is not None else None,
             departure_time=map_to_datetime(departure.get("pt"), format='%y%m%d%H%M') if departure is not None else None,
             route=route

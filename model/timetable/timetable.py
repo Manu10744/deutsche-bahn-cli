@@ -21,7 +21,13 @@ class TimeTable:
     def __repr__(self):
         return "Timetable({} - {} entries)".format(self.train_station, len(self.entries))
 
-    def get_sorted_entries(self):
+    def get_departures(self):
+        return [entry for entry in self.entries if not entry.is_terminus()]
+
+    def get_arrivals(self):
+        return [entry for entry in self.entries if not entry.is_begin()]
+
+    def get_sorted_entries(self) -> list:
         """
         Returns the timetable entries sorted by the time of arrival.
 

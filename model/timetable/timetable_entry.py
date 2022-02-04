@@ -5,7 +5,8 @@ from datetime import datetime
 @dataclass
 class TimeTableEntry:
     """
-    Data Object representing an entry in the timetable of a train station.
+    Data Object representing an entry in the timetable of a train station. An entry in the timetable is a train
+    arriving and/or departing from the timetable's train station.
 
     Attributes
     ----------

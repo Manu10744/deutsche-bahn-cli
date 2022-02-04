@@ -39,3 +39,13 @@ def print_timetable(timetable: TimeTable, max_results: int):
             end_idx += max_results
         else:
             break
+
+
+def print_arrivals(arrivals: list):
+    for arrival_entry in arrivals:
+        print("{} to {}: Arrival at {}".format(arrival_entry.train, arrival_entry.route[-1], arrival_entry.arrival_time))
+
+
+def print_departures(departures: list):
+    for departure_entry in departures:
+        print("{} to {}: Departure at {}".format(departure_entry.train, departure_entry.route[-1], departure_entry.departure_time))
