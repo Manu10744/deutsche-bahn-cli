@@ -1,7 +1,9 @@
+import xml.etree.ElementTree
+
 from requests.structures import CaseInsensitiveDict
 from datetime import datetime
 from model.timetable.timetable import TimeTable
-from mapping.mapper import map_to_train_station
+from mapping.mapper import map_to_train_station, map_to_timetable
 
 import requests
 import os
@@ -55,11 +57,13 @@ class DbApiClient:
         """
         Retrieves the departures for the train station matching the given `station_id`.
 
+        This method queries the Deutsche Bahn TimeTable API.\n
+        See more at https://developer.deutschebahn.com/store/apis/info?name=Timetables&version=v1&provider=DBOpenData
+
         :param station_id: the ID of the specific train station.
         :type station_id: int
 
         :return: a JSON-Array containing the departures for the train station.
-        :rtype: list
         """
         current_date = datetime.now()
         YYMMDD = current_date.strftime('%y') + current_date.strftime('%m') + current_date.strftime('%d')
@@ -76,13 +80,15 @@ class DbApiClient:
         logger.debug("Response: {}".format(response.content))
 
         xml_response = response.content.decode('utf-8')
-        return TimeTable.from_xml_string(xml_response)
+        return map_to_timetable(xml.etree.ElementTree.fromstring(xml_response))
 
-    def __get_request(self, request_url, params: dict = None, headers: dict = None) -> requests.Response:
+    def __get_request(self, request_url: str, params: dict = None, headers: dict = None) -> requests.Response:
         """
         Makes an HTTP GET Request to the specified `request_url` and returns the response.
 
-        :param request_url: the URL for the GET Request.
+        :param request_url: the URL for the GET request.
+        :param params: the URL parameters for the request.
+        :param headers: the headers to set in the request.
 
         :return: the retrieved response.
         """

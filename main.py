@@ -2,7 +2,7 @@ from dotenv import load_dotenv
 from argument_parsing import get_args
 from api_client import DbApiClient
 from utils.io import load_config
-from utils.printing import print_departures
+from utils.printing import print_stations, print_departures
 
 import os
 import logging
@@ -29,11 +29,7 @@ def main():
         search_string = args.search
         train_stations = client.get_stations(search_string)
 
-        if len(train_stations) > 0:
-            for station in train_stations:
-                print(station)
-        else:
-            print("No train stations were found.")
+        print_stations(train_stations, max_results)
 
     elif args.departures:
         station_id = args.departures

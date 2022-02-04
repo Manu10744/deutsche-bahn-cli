@@ -3,13 +3,16 @@ from utils.io import print_more_results
 
 
 def print_stations(train_stations: list, max_results: int):
+    if len(train_stations) == 0:
+        print("No train stations were found.")
+
     print("\nFound train stations:\n")
 
     idx = 0
     end_idx = max_results
     while idx < len(train_stations):
         for station in train_stations[idx:end_idx]:
-            print(f"{station['name']} \t (ID: {station['id']})")
+            print(station)
             idx += 1
 
         if idx < len(train_stations) and print_more_results():
