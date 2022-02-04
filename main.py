@@ -1,7 +1,8 @@
 from dotenv import load_dotenv
-from argument_parsing import DbArgumentParser
+from argument_parsing import get_args
 from api_client import DbApiClient
-from utils.io import load_config, print_more_results
+from utils.io import load_config
+from utils.printing import print_departures
 
 import os
 import logging
@@ -10,48 +11,12 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def print_stations(train_stations, max_results):
-    print("\nFound train stations:\n")
-
-    idx = 0
-    end_idx = max_results
-    while idx < len(train_stations):
-        for station in train_stations[idx:end_idx]:
-            print(f"{station['name']} \t (ID: {station['id']})")
-            idx += 1
-
-        if idx < len(train_stations) and print_more_results():
-            end_idx += max_results
-        else:
-            break
-
-
-def print_departures(timetable, max_results):
-    print(f"\nFound departures for {timetable.train_station}:\n")
-
-    idx = 0
-    end_idx = max_results
-    while idx < len(timetable.entries):
-        for entry in timetable.entries[idx:end_idx]:
-            print("{}: Departure at {}".format(entry.train, entry.departure_time))
-            print(" | ".join(entry.route))
-            print("\n")
-            idx += 1
-
-        if idx < len(timetable.entries) and print_more_results():
-            end_idx += max_results
-        else:
-            break
-
-
 def main():
-    argparser = DbArgumentParser()
-    args = argparser.parse_args()
+    args = get_args()
     logger.info("Arguments parsed successfully: {}".format(args))
 
     logging.basicConfig(level=args.loglevel, format='%(asctime)s - %(name)s - %(levelname)s >>> %(message)s',
                         handlers=[logging.StreamHandler()])
-
 
     config = load_config()
     logger.info("Configuration loaded successfully: {}".format(config))
@@ -65,7 +30,8 @@ def main():
         train_stations = client.get_stations(search_string)
 
         if len(train_stations) > 0:
-            print_stations(train_stations, max_results)
+            for station in train_stations:
+                print(station)
         else:
             print("No train stations were found.")
 

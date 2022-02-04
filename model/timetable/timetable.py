@@ -1,5 +1,5 @@
 from xml.etree import ElementTree
-from model.TimeTableEntry import TimeTableEntry
+from model.timetable.timetable_entry import TimeTableEntry
 from utils.time import parse_datetime
 
 from dataclasses import dataclass
@@ -7,23 +7,20 @@ from dataclasses import dataclass
 
 @dataclass
 class TimeTable:
-    """ Data object for a TimeTable retrieved from the Deutsche Bahn TimeTable API. """
+    """
+    Data object representing a timetable of a train station.
+
+    Attributes
+    ----------
+
+    train_station : str
+        the name of the train station associated with this timetable.
+    entires : list
+        list of entries, each representing a train arriving and / or departing from `train_station`.
+    """
 
     train_station: str
     entries: list
-
-    def __init__(self, train_station, entries):
-        """
-        Constructor.
-
-        :param train_station: the train station corresponding to this timetable.
-        :type train_station: str
-        :param entries: the entries for that timetable, each representing a train with arrival and
-                        departure data.
-        :type entries: list of `TimeTableEntry`
-        """
-        self.train_station = train_station
-        self.entries = entries
 
     def __repr__(self):
         return "Timetable({} - {} entries)".format(self.train_station, len(self.entries))
