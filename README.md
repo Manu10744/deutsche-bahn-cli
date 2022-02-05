@@ -32,7 +32,7 @@ $ pip install -r requirements.txt
 <br>
 
 ### Usage Examples
-#### Search for a train station
+#### Search for a train station and get information such as the station-ID.
 ```bash
 # Search with a fracture of a name
 py main.py --search Münc
@@ -42,6 +42,15 @@ py main.py --search "München Hbf"
 
 # Search with a wildcard
 py main.py --search "München*,Berlin*"
+```
+
+#### Use the station-ID to search for the current timetable, arrivals or departures
+```bash
+py main.py --timetable 8006550
+
+py main.py --arrivals 8006550
+
+py main.py --departures 8006550
 ```
 
 <br>
@@ -54,6 +63,7 @@ py main.py --search "München*,Berlin*"
 - [X] Implement search for departures given a train station => maybe --departures xy ?
 - [ ] (WIP) Implement search for parking spots => maybe --parking xy ?
 - [ ] Implement route information output => maybe --from xy --to z ?
+- [ ] Include changed data (departures, arrivals) as well
 
 ### Possible enhancements 
 - [X] Instead of printing lots of results, print some and ask user if he wants to output more results
