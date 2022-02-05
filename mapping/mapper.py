@@ -63,11 +63,13 @@ def map_to_timetable(timetable_tree: ElementTree) -> TimeTable:
 
 def map_to_datetime(datetime_string: str, format: str) -> datetime:
     """
-    Maps a string of format YYMMDDhhmm into a `datetime`.
+    Maps a string representing a datetime into a `datetime` using the given `format`.
+
     Example: '202201011322' for 2022-01-01 13:22
 
     :param datetime_string: the string representing the datetime.
+    :param format: the format string to use for converting the datetime string.
 
-    :return: the obtained `datetime`.
+    :return: the mapped `datetime`.
     """
     return datetime.strptime(datetime_string, format)
